@@ -13,34 +13,23 @@ error_reporting(E_ALL);
 session_start();
 
 // Use this function when you need to need an overview of these variables
-//function whatIsHappening() {
-//    echo '<h2>$_GET</h2>';
-//    var_dump($_GET);
-//    echo '<h2>$_POST</h2>';
-//    var_dump($_POST);
-//    echo '<h2>$_COOKIE</h2>';
-//    var_dump($_COOKIE);
-//    echo '<h2>$_SESSION</h2>';
-//    var_dump($_SESSION);
-//}
-
-function pre_r($array)
-{
-  echo '<pre>';
-  print_r($array);
-  echo '</pre>';
-}
-
 function whatIsHappening()
 {
   echo '<h2>$_GET</h2>';
   pre_r($_GET);
   echo '<h2>$_POST</h2>';
   pre_r($_POST);
-//  echo '<h2>$_COOKIE</h2>';
-//  pre_r($_COOKIE);
+  echo '<h2>$_COOKIE</h2>';
+  pre_r($_COOKIE);
   echo '<h2>$_SESSION</h2>';
   pre_r($_SESSION);
+}
+
+function pre_r($array)
+{
+  echo '<pre>';
+  print_r($array);
+  echo '</pre>';
 }
 
 whatIsHappening();
@@ -152,42 +141,24 @@ function handleForm()
   }
   else {
     // handle successful submission
-//    session_destroy();
     print_r("<h4 class=\"d-flex justify-content-center alert alert-success w-75 mx-auto\">You ordered "
       . implode(", ", $orders) . " to your delivery address "
       . $_POST["street"] . "</h4>");
 
-    // Clear $_SESSION["myFormData"] data so the input fields get clean
+    // Clear $_SESSION data so the input fields get clean
     $_SESSION = "";
     session_destroy();
   }
 }
 
 // replace this if by an actual check
-//$formSubmitted = "";
-//isset($_POST) &&
-//  isset($_POST["products"]) &&
-//  isset($_POST["email"]) &&
-//  isset($_POST["street"]) &&
-//  isset($_POST["streetNumber"]) &&
-//  isset($_POST["zipcode"]) ? $formSubmitted = true : $formSubmitted = false;
-
 $formSubmitted = isset($_POST["submit"]);
 
 if ($formSubmitted) {
-  // Store $_POST data in $_SESSION["myFormData"]
+  // Store $_POST data in $_SESSION
   $_SESSION = $_POST;
+  $_COOKIE["adress"] = $_POST["street"] . " " . $_POST["streetNumber"] . " " . $_POST["city"] . " " . $_POST["zipcode"];
   handleForm();
 }
-
-
-//$_SESSION['totalValue'] = $totalValue;
-
-//foreach($_SESSION["myFormData"] as $item) {
-//  print_r($item);
-//  print_r(PHP_EOL);
-//}
-//
-//pre_r($_SESSION);
 
 require 'form-view.php';
