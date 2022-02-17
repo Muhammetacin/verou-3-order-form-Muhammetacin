@@ -39,8 +39,8 @@ function whatIsHappening()
   pre_r($_POST);
 //  echo '<h2>$_COOKIE</h2>';
 //  pre_r($_COOKIE);
-//  echo '<h2>$_SESSION</h2>';
-//  pre_r($_SESSION);
+  echo '<h2>$_SESSION</h2>';
+  pre_r($_SESSION);
 }
 
 whatIsHappening();
@@ -97,11 +97,11 @@ function validate()
       }
     }
 
-    if (empty($_POST["streetnumber"])) {
+    if (empty($_POST["streetNumber"])) {
       $streetNrErr = "Street number is required";
       $errorList[] = $streetNrErr;
     } else {
-      $streetNr = test_input($_POST["streetnumber"]);
+      $streetNr = test_input($_POST["streetNumber"]);
       // check if street number only contains numbers
       if (!preg_match("/^[0-9]*$/",$streetNr)) {
         $streetNrErr = "Only numbers allowed in street number";
@@ -147,14 +147,15 @@ function handleForm()
 
   if (!empty($invalidFields)) {
     // handle errors
-    print_r("<h3 class=\"d-flex justify-content-center alert alert-danger w-75 mx-auto\">Invalid form.<br>"
-      . implode(nl2br(",\n"), $invalidFields) . "</h3>");
+    print_r("<h4 class=\"d-flex justify-content-center alert alert-danger w-75 mx-auto\">- Invalid form -<br>"
+      . implode(nl2br(",\n"), $invalidFields) . "</h4>");
   }
   else {
     // handle successful submission
-    print_r("<h3 class=\"d-flex justify-content-center alert alert-success w-75 mx-auto\">You ordered "
+    print_r("<h4 class=\"d-flex justify-content-center alert alert-success w-75 mx-auto\">You ordered "
       . implode(", ", $orders) . " to your delivery address "
-      . $_POST["street"] . "</h3>");
+      . $_POST["street"] . "</h4>");
+    session_destroy();
   }
 }
 
@@ -164,13 +165,23 @@ function handleForm()
 //  isset($_POST["products"]) &&
 //  isset($_POST["email"]) &&
 //  isset($_POST["street"]) &&
-//  isset($_POST["streetnumber"]) &&
+//  isset($_POST["streetNumber"]) &&
 //  isset($_POST["zipcode"]) ? $formSubmitted = true : $formSubmitted = false;
 
 $formSubmitted = isset($_POST["submit"]);
 
 if ($formSubmitted) {
+  $_SESSION['myFormData'] = $_POST;
   handleForm();
 }
+
+//$_SESSION['totalValue'] = $totalValue;
+
+//foreach($_SESSION["myFormData"] as $item) {
+//  print_r($item);
+//  print_r(PHP_EOL);
+//}
+//
+//pre_r($_SESSION);
 
 require 'form-view.php';
