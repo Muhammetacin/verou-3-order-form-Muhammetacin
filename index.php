@@ -152,9 +152,13 @@ function handleForm()
   }
   else {
     // handle successful submission
+//    session_destroy();
     print_r("<h4 class=\"d-flex justify-content-center alert alert-success w-75 mx-auto\">You ordered "
       . implode(", ", $orders) . " to your delivery address "
       . $_POST["street"] . "</h4>");
+
+    // Clear $_SESSION["myFormData"] data so the input fields get clean
+    $_SESSION = "";
     session_destroy();
   }
 }
@@ -171,9 +175,11 @@ function handleForm()
 $formSubmitted = isset($_POST["submit"]);
 
 if ($formSubmitted) {
-  $_SESSION['myFormData'] = $_POST;
+  // Store $_POST data in $_SESSION["myFormData"]
+  $_SESSION = $_POST;
   handleForm();
 }
+
 
 //$_SESSION['totalValue'] = $totalValue;
 
