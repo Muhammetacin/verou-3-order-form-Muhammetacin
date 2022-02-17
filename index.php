@@ -58,8 +58,6 @@ $products = [
 
 $totalValue = 0;
 
-//echo "<pre>You ordered " . implode(",", $_POST["products"]) . " and your delivery address is " . $_POST["street"] . "</pre>";
-
 function test_input($data) {
   $data = trim($data);
   $data = stripslashes($data);
@@ -104,7 +102,7 @@ function validate()
       $errorList[] = $streetNrErr;
     } else {
       $streetNr = test_input($_POST["streetnumber"]);
-      // check if street only contains letters and whitespace
+      // check if street number only contains numbers
       if (!preg_match("/^[0-9]*$/",$streetNr)) {
         $streetNrErr = "Only numbers allowed in street number";
         $errorList[] = $streetNrErr;
@@ -116,7 +114,7 @@ function validate()
       $errorList[] = $zipCodeErr;
     } else {
       $zipCode = test_input($_POST["zipcode"]);
-      // check if street only contains letters and whitespace
+      // check if zipcode only contains numbers
       if (!preg_match("/^[0-9]*$/",$zipCode)) {
         $zipCodeErr = "Only numbers allowed in zipcode";
         $errorList[] = $zipCodeErr;
@@ -124,15 +122,6 @@ function validate()
     }
 
     if (!isset($_POST["products"])) {
-//      $zipCodeErr = "Zipcode is required";
-//      $errorList[] = $zipCodeErr;
-//    } else {
-//      $zipCode = test_input($_POST["zipcode"]);
-//      // check if street only contains letters and whitespace
-//      if (!preg_match("/^[0-9]*$/",$zipCode)) {
-//        $zipCodeErr = "Only numbers allowed in zipcode";
-//        $errorList[] = $zipCodeErr;
-//      }
       $productsErr = "There are no products selected";
       $errorList[] = $productsErr;
     }
@@ -143,9 +132,6 @@ function validate()
 
 function handleForm()
 {
-  // form related tasks (step 1)
-  // echo "<h3 class=\"alert alert-success text-center\">You ordered " . implode(",", $_POST["products"]) . " to your delivery address " . $_POST["street"] . "</h3>";
-
   global $products, $totalValue;
   $orders = [];
 
@@ -156,25 +142,23 @@ function handleForm()
     }
   }
 
-
   // Validation (step 2)
   $invalidFields = validate();
-//  echo empty($invalidFields); // empty = 1, something in there = 0
 
   if (!empty($invalidFields)) {
-    // TODO: handle errors
+    // handle errors
     print_r("<h3 class=\"d-flex justify-content-center alert alert-danger w-75 mx-auto\">Invalid form.<br>"
       . implode(nl2br(",\n"), $invalidFields) . "</h3>");
   }
   else {
-    // TODO: handle successful submission
+    // handle successful submission
     print_r("<h3 class=\"d-flex justify-content-center alert alert-success w-75 mx-auto\">You ordered "
       . implode(", ", $orders) . " to your delivery address "
       . $_POST["street"] . "</h3>");
   }
 }
 
-// TODO: replace this if by an actual check
+// replace this if by an actual check
 //$formSubmitted = "";
 //isset($_POST) &&
 //  isset($_POST["products"]) &&
