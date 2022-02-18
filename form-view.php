@@ -45,7 +45,7 @@
                 </div>
                 <div class="form-group col-md-6">
                     <label for="streetNumber">Street number:</label>
-                    <input type="text" id="streetNumber" name="streetNumber" class="form-control" value="<?php echo $_SESSION["streetNumber"] ?? $_POST["streetNumber"] ?? ""; ?>">
+                    <input type="number" id="streetNumber" name="streetNumber" class="form-control" value="<?php echo $_SESSION["streetNumber"] ?? $_POST["streetNumber"] ?? ""; ?>">
                 </div>
             </div>
             <div class="form-row">
@@ -55,7 +55,7 @@
                 </div>
                 <div class="form-group col-md-6">
                     <label for="zipcode">Zipcode:</label>
-                    <input type="text" id="zipcode" name="zipcode" class="form-control" value="<?php echo $_SESSION["zipcode"] ?? $_POST["zipcode"] ?? ""; ?>">
+                    <input type="number" id="zipcode" name="zipcode" class="form-control" value="<?php echo $_SESSION["zipcode"] ?? $_POST["zipcode"] ?? ""; ?>">
                 </div>
             </div>
         </fieldset>
@@ -79,9 +79,26 @@
 </div>
 
 <style>
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    /* Firefox */
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
+
     footer {
         text-align: center;
     }
+
+    .invalidInput {
+        border: 1px solid crimson !important;
+    }
 </style>
+
+<script src="./form-checks.js"></script>
 </body>
 </html>

@@ -32,7 +32,7 @@ function pre_r($array)
   echo '</pre>';
 }
 
-whatIsHappening();
+//whatIsHappening();
 
 $drinks = [
   ['name' => 'Turkish coffee', 'price' => 4],
@@ -161,8 +161,8 @@ function handleForm()
     // handle successful submission
     print_r("<h4 class=\"d-flex justify-content-center alert alert-success w-75 mx-auto\">You ordered "
       . implode(", ", $orders) . " with the total amount of €" . $totalValue
-      . " to your delivery address "
-      . $_POST["street"] . " " . $_POST["streetNumber"] . ", " . $_POST["zipcode"] . " " . $_POST["city"] . "</h4>");
+      . " to your delivery address " . $_POST["street"] . " " . $_POST["streetNumber"]
+      . ", " . $_POST["zipcode"] . " " . $_POST["city"] . "</h4>");
 
     // Clear $_SESSION data so the input fields get clean
     $_SESSION = "";
@@ -186,6 +186,7 @@ if ($formSubmitted) {
   handleForm();
 }
 
-setcookie("totalValue", strval($totalValueAllOrders));
+// Set cookie for an hour
+setcookie("totalValue", strval($totalValueAllOrders), time() + 3600);
 
 require 'form-view.php';
