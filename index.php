@@ -34,7 +34,7 @@ function pre_r($array)
 
 whatIsHappening();
 
-$products = [
+$drinks = [
   ['name' => 'Turkish coffee', 'price' => 4],
   ['name' => 'Caykur Turkish tea', 'price' => 1.5],
   ['name' => 'Cola', 'price' => 2],
@@ -44,6 +44,19 @@ $products = [
   ['name' => 'Cappucino', 'price' => 3.5],
   ['name' => 'Water', 'price' => 1],
 ];
+
+$foods = [
+  ['name' => 'Baklava', 'price' => 4],
+  ['name' => 'Tiramisu', 'price' => 2.5],
+  ['name' => 'Ice cream', 'price' => 2],
+  ['name' => 'Lokum', 'price' => 1],
+  ['name' => 'Waffle', 'price' => 2],
+  ['name' => 'Pancake', 'price' => 3.5],
+  ['name' => 'Frietjes!', 'price' => 3],
+  ['name' => 'Chocolate bits', 'price' => 0.5],
+];
+
+$products = $drinks;
 
 $totalValue = 0;
 
@@ -143,17 +156,18 @@ function handleForm()
     // handle successful submission
     print_r("<h4 class=\"d-flex justify-content-center alert alert-success w-75 mx-auto\">You ordered "
       . implode(", ", $orders) . " to your delivery address "
-      . $_POST["street"] . "</h4>");
+      . $_POST["street"] . " " . $_POST["streetNumber"] . ", " . $_POST["city"] . " " . $_POST["zipcode"] . "</h4>");
 
     // Clear $_SESSION data so the input fields get clean
     $_SESSION = "";
     session_destroy();
 
     $_COOKIE["totalValue"] += $totalValue;
-
-    print_r("COOKIE: " . $_COOKIE["totalValue"]);
-    print_r($totalValue);
   }
+}
+
+if(isset($_GET["food"])) {
+  $_GET["food"] === "0" ? : $products = $foods;
 }
 
 // replace this if by an actual check
