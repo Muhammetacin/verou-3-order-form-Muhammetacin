@@ -42,21 +42,21 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="street">Street:</label>
-                    <input type="text" name="street" id="street" class="form-control" value="<?php echo $_SESSION["street"] ?? ""; ?>">
+                    <input type="text" name="street" id="street" class="form-control" value="<?php echo $_SESSION["street"] ?? $_POST["street"] ?? ""; ?>">
                 </div>
                 <div class="form-group col-md-6">
                     <label for="streetNumber">Street number:</label>
-                    <input type="text" id="streetNumber" name="streetNumber" class="form-control" value="<?php echo $_SESSION["streetNumber"] ?? ""; ?>">
+                    <input type="text" id="streetNumber" name="streetNumber" class="form-control" value="<?php echo $_SESSION["streetNumber"] ?? $_POST["streetNumber"] ?? ""; ?>">
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="city">City:</label>
-                    <input type="text" id="city" name="city" class="form-control" value="<?php echo $_SESSION["city"] ?? ""; ?>">
+                    <input type="text" id="city" name="city" class="form-control" value="<?php echo $_SESSION["city"] ?? $_POST["city"] ?? ""; ?>">
                 </div>
                 <div class="form-group col-md-6">
                     <label for="zipcode">Zipcode:</label>
-                    <input type="text" id="zipcode" name="zipcode" class="form-control" value="<?php echo $_SESSION["zipcode"] ?? ""; ?>">
+                    <input type="text" id="zipcode" name="zipcode" class="form-control" value="<?php echo $_SESSION["zipcode"] ?? $_POST["zipcode"] ?? ""; ?>">
                 </div>
             </div>
         </fieldset>
@@ -74,7 +74,7 @@
         <button type="submit" name="submit" class="btn btn-primary">Order!</button>
     </form>
 
-    <footer>You already ordered <strong>&euro; <?php echo $totalValue ?></strong> in food and drinks.</footer>
+    <footer>You already ordered <strong>&euro; <?php echo $_COOKIE["totalValue"] ?></strong> in food and drinks.</footer>
 </div>
 
 <style>

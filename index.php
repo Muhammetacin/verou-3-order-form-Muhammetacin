@@ -148,6 +148,11 @@ function handleForm()
     // Clear $_SESSION data so the input fields get clean
     $_SESSION = "";
     session_destroy();
+
+    $_COOKIE["totalValue"] += $totalValue;
+
+    print_r("COOKIE: " . $_COOKIE["totalValue"]);
+    print_r($totalValue);
   }
 }
 
@@ -157,8 +162,9 @@ $formSubmitted = isset($_POST["submit"]);
 if ($formSubmitted) {
   // Store $_POST data in $_SESSION
   $_SESSION = $_POST;
-  $_COOKIE["adress"] = $_POST["street"] . " " . $_POST["streetNumber"] . " " . $_POST["city"] . " " . $_POST["zipcode"];
   handleForm();
 }
+
+setcookie("totalValue", strval($totalValue));
 
 require 'form-view.php';
