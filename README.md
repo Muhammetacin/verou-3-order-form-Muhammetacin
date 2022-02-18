@@ -1,5 +1,7 @@
 # Order form
 
+Link to Heroku: <https://cin-order-form.herokuapp.com/>
+
 - Repository: `order-form`
 - Type of Challenge: `Learning challenge`
 - Duration: `2 days`
