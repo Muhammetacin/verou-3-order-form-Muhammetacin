@@ -59,6 +59,11 @@ $foods = [
 $products = $drinks;
 
 $totalValue = 0;
+$totalValueAllOrders = 0;
+
+if(isset($_COOKIE["totalValue"])) {
+  $totalValueAllOrders = $_COOKIE["totalValue"];
+}
 
 function test_input($data) {
   $data = trim($data);
@@ -140,7 +145,7 @@ function handleForm()
   for($i = 0; $i < count($products); $i++) {
     if(isset($_POST["products"][$i])) {
       $orders[] = $products[$i]["name"];
-      $totalValue += $products[$i]["price"];
+      $totalValue += $products[$i]["price"] * $_POST["productAmount"][$i];
     }
   }
 
@@ -155,14 +160,16 @@ function handleForm()
   else {
     // handle successful submission
     print_r("<h4 class=\"d-flex justify-content-center alert alert-success w-75 mx-auto\">You ordered "
-      . implode(", ", $orders) . " to your delivery address "
-      . $_POST["street"] . " " . $_POST["streetNumber"] . ", " . $_POST["city"] . " " . $_POST["zipcode"] . "</h4>");
+      . implode(", ", $orders) . " with the total amount of €" . $totalValue
+      . " to your delivery address "
+      . $_POST["street"] . " " . $_POST["streetNumber"] . ", " . $_POST["zipcode"] . " " . $_POST["city"] . "</h4>");
 
     // Clear $_SESSION data so the input fields get clean
     $_SESSION = "";
     session_destroy();
 
-    $_COOKIE["totalValue"] += $totalValue;
+    global $totalValueAllOrders;
+    $totalValueAllOrders += $totalValue;
   }
 }
 
@@ -179,6 +186,6 @@ if ($formSubmitted) {
   handleForm();
 }
 
-setcookie("totalValue", strval($totalValue));
+setcookie("totalValue", strval($totalValueAllOrders));
 
 require 'form-view.php';
