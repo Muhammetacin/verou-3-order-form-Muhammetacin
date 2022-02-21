@@ -137,9 +137,9 @@ function validate()
   return $errorList;
 }
 
-function handleForm()
+function handleForm($products, $totalValue)
 {
-  global $products, $totalValue;
+//  global $products, $totalValue;
   $orders = [];
 
   for($i = 0; $i < count($products); $i++) {
@@ -166,6 +166,9 @@ function handleForm()
       . " to your delivery address " . $_POST["street"] . " " . $_POST["streetNumber"]
       . ", " . $_POST["zipcode"] . " " . $_POST["city"] . "</h4>");
 
+    print_r("<h4 class=\"container d-flex justify-content-center alert alert-success w-75 mx-auto mt-3\">Your order will arrive at "
+        . gmdate("H:i",time() + 3600 + 7200) . " (in 2 hours)</h4>");
+
     // Clear $_SESSION data so the input fields get clean
     $_SESSION = "";
     session_destroy();
@@ -176,10 +179,10 @@ if(isset($_GET["food"])) {
   $_GET["food"] === "0" ? : $products = $foods;
 }
 
-$formSubmitted = $_SERVER['REQUEST_METHOD'];
-if ($formSubmitted === 'POST') {
+$formSubmitted = !empty($_POST);
+if ($formSubmitted) {
   $_SESSION = $_POST;
-  handleForm();
+  handleForm($products, $totalValue);
 }
 
 // Set cookie for an hour
