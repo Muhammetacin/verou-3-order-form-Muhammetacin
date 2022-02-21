@@ -61,8 +61,8 @@ $products = $drinks;
 $totalValue = 0;
 $totalValueAllOrders = 0;
 
-if(isset($_COOKIE["totalValue"])) {
-  $totalValueAllOrders = $_COOKIE["totalValue"];
+if(isset($_COOKIE['totalValue'])) {
+  $totalValueAllOrders = $_COOKIE['totalValue'];
 }
 
 function test_input($data) {
@@ -75,61 +75,61 @@ function test_input($data) {
 function validate()
 {
   // This function will send a list of invalid fields back
-  $streetErr = $emailErr = $streetNrErr = $zipCodeErr = $productsErr = "";
-  $street = $email = $streetNr = $zipCode = "";
+  $streetErr = $emailErr = $streetNrErr = $zipCodeErr = $productsErr = '';
+  $street = $email = $streetNr = $zipCode = '';
   $errorList = [];
 
-  if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (empty($_POST["email"])) {
-      $emailErr = "Email is required";
+  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (empty($_POST['email'])) {
+      $emailErr = 'Email is required';
       $errorList[] = $emailErr;
     } else {
-      $email = test_input($_POST["email"]);
+      $email = test_input($_POST['email']);
       // check if e-mail address is well-formed
       if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $emailErr = "Invalid email format";
+        $emailErr = 'Invalid email format';
         $errorList[] = $emailErr;
       }
     }
 
-    if (empty($_POST["street"])) {
-      $streetErr = "Street is required";
+    if (empty($_POST['street'])) {
+      $streetErr = 'Street is required';
       $errorList[] = $streetErr;
     } else {
-      $street = test_input($_POST["street"]);
+      $street = test_input($_POST['street']);
       // check if street only contains letters and whitespace
       if (!preg_match("/^[a-zA-Z-' ]*$/",$street)) {
-        $streetErr = "Only letters and white space allowed in street";
+        $streetErr = 'Only letters and white space allowed in street';
         $errorList[] = $streetErr;
       }
     }
 
-    if (empty($_POST["streetNumber"])) {
-      $streetNrErr = "Street number is required";
+    if (empty($_POST['streetNumber'])) {
+      $streetNrErr = 'Street number is required';
       $errorList[] = $streetNrErr;
     } else {
-      $streetNr = test_input($_POST["streetNumber"]);
+      $streetNr = test_input($_POST['streetNumber']);
       // check if street number only contains numbers
       if (!preg_match("/^[0-9]*$/",$streetNr)) {
-        $streetNrErr = "Only numbers allowed in street number";
+        $streetNrErr = 'Only numbers allowed in street number';
         $errorList[] = $streetNrErr;
       }
     }
 
-    if (empty($_POST["zipcode"])) {
-      $zipCodeErr = "Zipcode is required";
+    if (empty($_POST['zipcode'])) {
+      $zipCodeErr = 'Zipcode is required';
       $errorList[] = $zipCodeErr;
     } else {
-      $zipCode = test_input($_POST["zipcode"]);
+      $zipCode = test_input($_POST['zipcode']);
       // check if zipcode only contains numbers
       if (!preg_match("/^[0-9]*$/",$zipCode)) {
-        $zipCodeErr = "Only numbers allowed in zipcode";
+        $zipCodeErr = 'Only numbers allowed in zipcode';
         $errorList[] = $zipCodeErr;
       }
     }
 
-    if (!isset($_POST["products"])) {
-      $productsErr = "There are no products selected";
+    if (!isset($_POST['products'])) {
+      $productsErr = 'There are no products selected';
       $errorList[] = $productsErr;
     }
   }
@@ -143,31 +143,31 @@ function handleForm($products, $totalValue)
   $orders = [];
 
   for($i = 0; $i < count($products); $i++) {
-    if(isset($_POST["products"][$i])) {
-      $orders[] = $products[$i]["name"];
-      $totalValue += $products[$i]["price"] * $_POST["productAmount"][$i];
+    if(isset($_POST['products'][$i])) {
+      $orders[] = $products[$i]['name'];
+      $totalValue += $products[$i]['price'] * $_POST['productAmount'][$i];
     }
   }
 
-  $_POST["totalValue"] = $totalValue;
+  $_POST['totalValue'] = $totalValue;
 
   // Validation (step 2)
   $invalidFields = validate();
 
   if (!empty($invalidFields)) {
     // handle errors
-    print_r("<h4 class=\"container d-flex justify-content-center alert alert-danger w-75 mx-auto mt-3\">- Invalid form -<br>"
-      . implode(nl2br(",\n"), $invalidFields) . "</h4>");
+    print_r('<h4 class=\"container d-flex justify-content-center alert alert-danger w-75 mx-auto mt-3\">- Invalid form -<br>'
+      . implode(nl2br(',\n'), $invalidFields) . '</h4>');
   }
   else {
     // handle successful submission
     print_r("<h4 class=\"container d-flex justify-content-center alert alert-success w-75 mx-auto mt-3\">You ordered "
-      . implode(", ", $orders) . " with the total amount of €" . $totalValue
-      . " to your delivery address " . $_POST["street"] . " " . $_POST["streetNumber"]
-      . ", " . $_POST["zipcode"] . " " . $_POST["city"] . "</h4>");
+      . implode(', ', $orders) . ' with the total amount of €' . $totalValue
+      . ' to your delivery address ' . $_POST['street'] . ' ' . $_POST['streetNumber']
+      . ', ' . $_POST['zipcode'] . " " . $_POST['city'] . "</h4>");
 
     print_r("<h4 class=\"container d-flex justify-content-center alert alert-success w-75 mx-auto mt-3\">Your order will arrive at "
-        . gmdate("H:i",time() + 3600 + 7200) . " (in 2 hours)</h4>");
+        . gmdate('H:i',time() + 3600 + 7200) . " (in 2 hours)</h4>");
 
     // Clear $_SESSION data so the input fields get clean
     $_SESSION = "";
@@ -175,8 +175,8 @@ function handleForm($products, $totalValue)
   }
 }
 
-if(isset($_GET["food"])) {
-  $_GET["food"] === "0" ? : $products = $foods;
+if(isset($_GET['food'])) {
+  $_GET['food'] === '0' ? : $products = $foods;
 }
 
 $formSubmitted = !empty($_POST);
@@ -187,6 +187,6 @@ if ($formSubmitted) {
 
 // Set cookie for an hour
 $totalValueAllOrders += $totalValue;
-setcookie("totalValue", strval($totalValueAllOrders), time() + 3600);
+setcookie('totalValue', strval($totalValueAllOrders), time() + 3600);
 
 require 'form-view.php';
