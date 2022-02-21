@@ -170,7 +170,7 @@ function handleForm($products, $totalValue)
         . gmdate('H:i',time() + 3600 + 7200) . " (in 2 hours)</h4>");
 
     // Clear $_SESSION data so the input fields get clean
-    $_SESSION = "";
+    $_SESSION = '';
     session_destroy();
   }
 }
