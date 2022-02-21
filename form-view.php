@@ -12,7 +12,7 @@
     <title>Büfe</title>
 </head>
 <body>
-<div class="container">
+<div class="container my-3 p-3 border rounded border-dark">
     <h1>Place your order</h1>
 
     <nav>
