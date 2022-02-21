@@ -156,17 +156,17 @@ function handleForm($products, $totalValue)
 
   if (!empty($invalidFields)) {
     // handle errors
-    print_r('<h4 class=\"container d-flex justify-content-center alert alert-danger w-75 mx-auto mt-3\">- Invalid form -<br>'
+    print_r('<h4 class="container d-flex justify-content-center alert alert-danger w-75 mx-auto mt-3">- Invalid form -<br>'
       . implode(nl2br(',\n'), $invalidFields) . '</h4>');
   }
   else {
     // handle successful submission
-    print_r('<h4 class=\"container d-flex justify-content-center alert alert-success w-75 mx-auto mt-3\">You ordered '
+    print_r('<h4 class="container d-flex justify-content-center alert alert-success w-75 mx-auto mt-3">You ordered '
       . implode(', ', $orders) . ' with the total amount of €' . $totalValue
       . ' to your delivery address ' . $_POST['street'] . ' ' . $_POST['streetNumber']
       . ', ' . $_POST['zipcode'] . " " . $_POST['city'] . "</h4>");
 
-    print_r('<h4 class=\"container d-flex justify-content-center alert alert-success w-75 mx-auto mt-3\">Your order will arrive at '
+    print_r('<h4 class="container d-flex justify-content-center alert alert-success w-75 mx-auto mt-3">Your order will arrive at '
         . gmdate('H:i',time() + 3600 + 7200) . " (in 2 hours)</h4>");
 
     // Clear $_SESSION data so the input fields get clean
