@@ -47,18 +47,18 @@ Link to Heroku: <https://cin-order-form.herokuapp.com/>
 - Allow the user to specify how much he or she wants to buy of a certain products
 
 ### Look & feel
-- What kind of style would suit your store? Add a color schema and a suitable font.
+- What kind of style would suit your store? Add a color schema and a suitable font. (todo)
 - Check what you can do for validation with html and JS. Use this to improve your validation.
 
 ## 🌳 Nice-to-have features (hard)
 
 ### Delivery times
-- Show the expected delivery time in the confirmation message (2h by default).
-- A user can opt for express delivery (5$ for delivery in 45min).
+- Show the expected delivery time in the confirmation message (2h by default). (todo)
+- A user can opt for express delivery (5$ for delivery in 45min). (todo)
 
 ### Statistics
 - Show statistics about how much money has been spent. This info should be kept (can you use the session or cookies for this?) when the browser closes.
-- Include the most popular product (by this user) and amount of products bought by this user.
+- Include the most popular product (by this user) and amount of products bought by this user. (todo)
 
 Sales are almost there... last thing to do is waiting for customers on a shopping spree!
 

@@ -32,7 +32,7 @@ function pre_r($array)
   echo '</pre>';
 }
 
-//whatIsHappening();
+whatIsHappening();
 
 $drinks = [
   ['name' => 'Turkish coffee', 'price' => 4],
@@ -149,6 +149,8 @@ function handleForm()
     }
   }
 
+  $_POST["totalValue"] = $totalValue;
+
   // Validation (step 2)
   $invalidFields = validate();
 
@@ -169,7 +171,9 @@ function handleForm()
     session_destroy();
 
     global $totalValueAllOrders;
-    $totalValueAllOrders += $totalValue;
+
+    // Todo: every time page refreshes totalValue gets added to totalValueAllOrders
+
   }
 }
 
@@ -178,15 +182,22 @@ if(isset($_GET["food"])) {
 }
 
 // replace this if by an actual check
-$formSubmitted = isset($_POST["submit"]);
+//$formSubmitted = isset($_POST["submit"]);
+//
+//if ($formSubmitted) {
+//  // Store $_POST data in $_SESSION
+//  $_SESSION = $_POST;
+//  handleForm();
+//}
 
-if ($formSubmitted) {
-  // Store $_POST data in $_SESSION
+$formSubmitted = $_SERVER['REQUEST_METHOD'];
+if ($formSubmitted === 'POST') {
   $_SESSION = $_POST;
   handleForm();
 }
 
 // Set cookie for an hour
+$totalValueAllOrders += $totalValue;
 setcookie("totalValue", strval($totalValueAllOrders), time() + 3600);
 
 require 'form-view.php';
