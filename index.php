@@ -32,7 +32,7 @@ function pre_r($array)
   echo '</pre>';
 }
 
-whatIsHappening();
+//whatIsHappening();
 
 $drinks = [
   ['name' => 'Turkish coffee', 'price' => 4],
@@ -169,26 +169,12 @@ function handleForm()
     // Clear $_SESSION data so the input fields get clean
     $_SESSION = "";
     session_destroy();
-
-    global $totalValueAllOrders;
-
-    // Todo: every time page refreshes totalValue gets added to totalValueAllOrders
-
   }
 }
 
 if(isset($_GET["food"])) {
   $_GET["food"] === "0" ? : $products = $foods;
 }
-
-// replace this if by an actual check
-//$formSubmitted = isset($_POST["submit"]);
-//
-//if ($formSubmitted) {
-//  // Store $_POST data in $_SESSION
-//  $_SESSION = $_POST;
-//  handleForm();
-//}
 
 $formSubmitted = $_SERVER['REQUEST_METHOD'];
 if ($formSubmitted === 'POST') {
